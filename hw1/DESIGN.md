@@ -5,7 +5,7 @@ This program implements a simplified version of the dice game Pass the Pigs. To 
 
 # PSEUDOCODE
 
-typedef with alias of "Positions" and enumerate  
+`typedef with alias of "Positions" and enumerate  `
 initialize array of size 7 with all positions and respective probabilities
 
 initialize input variable to 0  
