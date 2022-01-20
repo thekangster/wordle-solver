@@ -5,15 +5,17 @@ This program implements a simplified version of the dice game Pass the Pigs. To 
 
 # PSEUDOCODE
 
-`initialize input variable to 0
-prompt user to input number of players
-if input is not an integer between 2 and 10
-    print "Invalid number of players. Using 2 instead.\n"
+typedef with alias of "Positions" and enumerate  
+initialize array of size 7 with all positions and respective probabilities
 
-initialize seed variable to 0
-prompt user to input random seed
-if the seed is not valid
-    set seed to 2022
-    print "Invalid random seed. Using 2022 instead.\n"
+initialize input variable to 0  
+prompt user to input number of players  
+if input is not an integer between 2 and 10  
+&nbsp;&nbsp;print to stderr "Invalid number of players. Using 2 instead.\n"  
 
-`
+initialize seed variable to 0  
+prompt user to input random seed  
+if the seed is not valid  
+&nbsp;&nbsp;set seed to 2022  
+&nbsp;&nbsp;print to stderr "Invalid random seed. Using 2022 instead.\n"  
+
