@@ -18,8 +18,8 @@ if input < 2 || input > 10
 &nbsp;&nbsp;&nbsp;&nbsp;set input to 2  
 &nbsp;&nbsp;&nbsp;&nbsp;print to stderr "Invalid number of players. Using 2 instead.\n"    
 
-initialize seed variable to 0    
-prompt user to input random seed   
+initialize seed variable      
+prompt user to input random seed  
 if the seed < 0 || seed > UINT_MAX    
 &nbsp;&nbsp;&nbsp;&nbsp;set seed to 2022    
 &nbsp;&nbsp;&nbsp;&nbsp;print to stderr "Invalid random seed. Using 2022 instead.\n"    
@@ -32,7 +32,7 @@ initialize player_points array of integers of size [input]
 initialize pos_points array of integers of size [7] {0, 0, 10, 10, 15, 5, 5}  
 initialize pos_phrase array of strings of size [num_strings][max_length] [7][4] {"pig rolled on side", "pig rolled on side", "pig lands on back", "pig lands upright", "pig lands on snout", "pig lands on ear", "pig lands on ear"}  
 
-srandom(seed)  
+srandom(unsigned int seed)  
 for (player = 0; player < input; player++)      
 &nbsp;&nbsp;&nbsp;&nbsp;print "%names[player] rolls the pig..."  
 &nbsp;&nbsp;&nbsp;&nbsp;while roll is not 0 or 1  
