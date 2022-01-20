@@ -31,9 +31,8 @@ initialize player_points array of integers of size [input]
 initialize pos_points array of integers of size [7] {0, 0, 10, 10, 15, 5, 5}  
 initialize pos_phrase array of strings of size [7] {"pig rolled on side", "pig rolled on side", "pig lands on back", "pig lands upright", "pig lands on snout", "pig lands on ear", "pig lands on ear"}  
 
-srandom(seed)
+srandom(seed)  
 for (player = 0; player < input; player++)  
-
 &nbsp;&nbsp;&nbsp;&nbsp;print "%names[player] rolls the pig..."  
 &nbsp;&nbsp;&nbsp;&nbsp;while roll is not 0 or 1  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if player_points[player] >= 100   
