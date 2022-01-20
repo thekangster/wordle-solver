@@ -1,6 +1,7 @@
 
-# design document - hw1: input, loops, numbers, and pigs
+# design document  
 
+This is the DESIGN.md file for hw1: input, loops, numbers, and pigs  
 
 ## how the program works
 
