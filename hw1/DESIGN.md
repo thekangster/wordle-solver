@@ -5,34 +5,42 @@ This program implements a simplified version of the dice game Pass the Pigs. To 
 
 # Pseudocode
 
-`typedef with alias of "Positions" and enumerate`  
-`initialize array of size 7 with all positions and respective probabilities`  
 
-`initialize input variable to 0`    
-`prompt user to input number of players`    
-`if input is < 2 || > 10`  
-&nbsp;&nbsp;&nbsp;&nbsp;`set input to 2`
-&nbsp;&nbsp;&nbsp;&nbsp;`print to stderr "Invalid number of players. Using 2 instead.\n"`    
+typedef with alias of "Positions" and enumerate  
+initialize array of size 7 with all positions and respective probabilities  
 
-`initialize seed variable to 0`    
-`prompt user to input random seed`   
-`if the seed is > 0 && > UINT_MAX`    
-&nbsp;&nbsp;&nbsp;&nbsp;`set seed to 2022`    
-&nbsp;&nbsp;&nbsp;&nbsp;`print to stderr "Invalid random seed. Using 2022 instead.\n"`    
-`set min variable = 0`  
-`set max variable = 6`  
-`srandom(seed)`  
+initialize input variable to 0    
+prompt user to input number of players    
+if input is < 2 || > 10  
+&nbsp;&nbsp;&nbsp;&nbsp;set input to 2  
+&nbsp;&nbsp;&nbsp;&nbsp;print to stderr "Invalid number of players. Using 2 instead.\n"    
 
-`initialize roll variable`  
-`initialize player_points array of integers of size [input]`  
-`initialize pos_points array of integers of size [7] {0, 0, 10, 10, 15, 5, 5}`  
+initialize seed variable to 0    
+prompt user to input random seed   
+if the seed is > 0 && > UINT_MAX    
+&nbsp;&nbsp;&nbsp;&nbsp;set seed to 2022    
+&nbsp;&nbsp;&nbsp;&nbsp;print to stderr "Invalid random seed. Using 2022 instead.\n"    
+set min variable = 0  
+set max variable = 6    
+srandom(seed)
 
-`for (player = 0; player < input; player++)`  
-&nbsp;&nbsp;&nbsp;&nbsp;`while roll is not 0 or 1`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`set roll to min + (random() % (max - min))`  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`player_points[player] += pos_points[roll]`
-&nbsp;&nbsp;&nbsp;&nbsp;`print "%player rolls the pig... pig rolled %pig[roll]"`  
+initialize roll variable int  
+initialize player_points array of integers of size [input]  
+initialize pos_points array of integers of size [7] {0, 0, 10, 10, 15, 5, 5}  
+initialize pos_phrase array of strings of size [7] {"pig rolled on side", "pig rolled on side", "pig lands on back", "pig lands upright", "pig lands on snout", "pig lands on ear", "pig lands on ear"}  
 
-`for (i = 0; i < input; i++)`  
-&nbsp;&nbsp;&nbsp;&nbsp;`create list of integers of size i(number of players)`  
+for (player = 0; player < input; player++)  
+
+&nbsp;&nbsp;&nbsp;&nbsp;print "%names[player] rolls the pig..."  
+&nbsp;&nbsp;&nbsp;&nbsp;while roll is not 0 or 1  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if player_points[player] >= 100 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print to stdout "%names[player] wins with %player_points[player] points!"  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break loop  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set roll to min + (random() % (max - min))   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;player_points[player] += pos_points[roll]  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print "%pos_phrase"  
+&nbsp;&nbsp;&nbsp;&nbsp;print "%player lands on side\n"  
+&nbsp;&nbsp;&nbsp;&nbsp;set roll to None  
+
 
