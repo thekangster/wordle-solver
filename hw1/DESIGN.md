@@ -9,6 +9,7 @@ This program implements a simplified version of the dice game Pass the Pigs. To 
 
 ## pseudocode
 
+```
 typedef with alias of "Positions" and enumerate  
 initialize array of size 7 with all positions and respective probabilities  
 
@@ -47,4 +48,4 @@ for (player = 0; player < input; player++)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set player = 0  
 
 end:  
-
+```
