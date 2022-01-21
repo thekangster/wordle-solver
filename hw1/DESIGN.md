@@ -17,13 +17,13 @@ initialize input variable to 0
 prompt user to input number of players    
 if input < 2 || input > 10  
     set input to 2  
-&nbsp;&nbsp;&nbsp;&nbsp;print to stderr "Invalid number of players. Using 2 instead.\n"    
+    print to stderr "Invalid number of players. Using 2 instead.\n"    
 
 initialize seed variable      
 prompt user to input random seed  
 if the seed < 0 || seed > UINT_MAX    
-&nbsp;&nbsp;&nbsp;&nbsp;set seed to 2022    
-&nbsp;&nbsp;&nbsp;&nbsp;print to stderr "Invalid random seed. Using 2022 instead.\n"    
+    set seed to 2022    
+    print to stderr "Invalid random seed. Using 2022 instead.\n"    
 
 set min variable = 0  
 set max variable = 6   
@@ -35,17 +35,18 @@ initialize pos_phrase array of strings of size [num_strings][max_length] [7][4] 
 
 srandom(unsigned int seed)  
 for (player = 0; player < input; player++)      
-&nbsp;&nbsp;&nbsp;&nbsp;print "%names[player] rolls the pig..."  
-&nbsp;&nbsp;&nbsp;&nbsp;while roll is not 0 or 1  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if player_points[player] >= 100   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print to stdout "%names[player] wins with %player_points[player] points!"  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goto end  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set roll to min + (random() % (max - min))   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;player_points[player] += pos_points[roll]  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print "%pos_phrase"  
-&nbsp;&nbsp;&nbsp;&nbsp;set roll to None  
-&nbsp;&nbsp;&nbsp;&nbsp;if player == input - 1  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set player = 0  
+    print "%names[player] rolls the pig..."  
+    while roll is not 0 or 1  
+        if player_points[player] >= 100   
+            print to stdout "%names[player] wins with %player_points[player] points!"  
+            goto end  
+        set roll to min + (random() % (max - min))   
+        player_points[player] += pos_points[roll]  
+        print "%pos_phrase"
+
+    set roll to None  
+    if player == input - 1  
+        set player = 0  
 
 end:  
 ```
