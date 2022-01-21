@@ -16,7 +16,7 @@ initialize array of size 7 with all positions and respective probabilities
 initialize input variable to 0    
 prompt user to input number of players    
 if input < 2 || input > 10  
-&nbsp;&nbsp;&nbsp;&nbsp;set input to 2  
+set input to 2  
 &nbsp;&nbsp;&nbsp;&nbsp;print to stderr "Invalid number of players. Using 2 instead.\n"    
 
 initialize seed variable      
