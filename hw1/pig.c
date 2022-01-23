@@ -1,19 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "names.h"
+#include "limits.h"
+#include <stdint.h>
 
 int main(void) {
-    /*typedef enum { SIDE, RAZORBACK, TROTTER, SNOUTER, JOWLER } Position;
-    const Position pig[7] = {
-        SIDE,
-        SIDE,
-        RAZORBACK,
-        TROTTER,
-        SNOUTER,
-        JOWLER,
-        JOWLER
-    };*/
-    
+
     int input = 0;
     printf("How many players? ");
     scanf("%d", &input);
@@ -22,10 +14,10 @@ int main(void) {
         fprintf(stderr, "Invalid number of players. Using 2 instead.\n");
     }
 
-    unsigned int seed = 0;
+    long seed;
     printf("Random seed: ");
-    scanf("%d", &seed);
-    if (seed < 0 || seed > 4294967295) {
+    scanf("%ld", &seed);
+    if (seed < 0 || seed > UINT_MAX) {
         seed = 2022;
         fprintf(stderr, "Invalid random seed. Using 2022 instead.\n");
     }
