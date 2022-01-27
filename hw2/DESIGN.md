@@ -18,6 +18,55 @@ We then have a function for finding the maximum element of an array, summing all
 # pseudocode
 
 `
-test
-`
+function int maximum(int *nums, int len)
+    initialize max = nums[0]
+    for (int i = 0; i < len; i++)
+        if nums[i] greater than max
+            change max to nums[i]
+    return max
 
+function int sum_positive(int *nums, int len)
+    initialize sum = 0
+    for (int i = 0; i < len; i++)
+        if nums[i] > 0
+            sum += nums[i]
+    return sum
+
+function int helper_max(int a, int b)
+    initialize UINT_MAX max = a
+    if b > a
+        max = b
+    return a
+
+function int helper_add(int a, int b)
+    initialize result = 0
+    if a > 0
+        result += a
+    if b > 0
+        result += b
+    return result
+
+function int helper_count(int a, int b)
+    neg_elems = 0
+    if a < 0
+        neg_elems += 1
+    if b < 0
+        net_elems += 1 
+    return neg_elems
+
+function int reduce(int *nums, int len, int (*f)(int,int), int initial)
+    value = initial
+    for (int i = 0; i < len; i++)
+        value = f(value, nums[i])
+    return initial
+
+function int maximum_with_reduce(int *nums, int size)
+    return reduce(int *nums, int len, helper_max(nums, size), int initial)
+
+function int sum_positive_with_reduce(int *nums, int size)
+    return reduce(int *nums, int len, helper_add(nums, size), int initial)
+
+function int count_negative_with_reduce(int *nums, int size)
+    return reduce(int *nums, int len, helper_count(nums, size), int initial)
+
+`
