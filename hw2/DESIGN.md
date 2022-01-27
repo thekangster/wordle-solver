@@ -58,7 +58,7 @@ function int reduce(int *nums, int len, int (*f)(int,int), int initial)
     value = initial
     for (int i = 0; i < len; i++)
         value = f(value, nums[i])
-    return initial
+    return value
 
 function int maximum_with_reduce(int *nums, int size)
     return reduce(int *nums, int len, helper_max(nums, size), int initial)
