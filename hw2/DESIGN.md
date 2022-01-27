@@ -17,7 +17,7 @@ We then have a function for finding the maximum element of an array, summing all
 
 # pseudocode
 
-`
+```
 function int maximum(int *nums, int len)
     initialize max = nums[0]
     for (int i = 0; i < len; i++)
@@ -69,4 +69,4 @@ function int sum_positive_with_reduce(int *nums, int size)
 function int count_negative_with_reduce(int *nums, int size)
     return reduce(int *nums, int len, helper_count(nums, size), int initial)
 
-`
+```
