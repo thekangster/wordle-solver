@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include "num_arrays.h"
+#define BUFSIZE 512
 
 int main(void) {
-  const int BUFSIZE=512;
 
   int size = 0;
   int nums[1024];
