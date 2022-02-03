@@ -11,4 +11,29 @@ The calculator works by reading input from the text file. If it reads a number, 
 
 # pseudocode
 
+'''
+bool stack_push(pointer to stack, CalculatorItem item)
+    Node *newtop = (Node *)calloc(1, sizeof(Node))
+    if newtop is null
+        return false
+    set newtop->data to item
+    set newtop->next to s->top
 
+    set s->top to newtop
+    return true
+
+bool stack_pop(pointer to stack, CalculatorItem pointer to output)
+    if (s is NULL or s->top is NULL)
+        return false
+    set int result to s->top->data
+    output = result
+
+    Node pointer to delete_this is s->top
+    free delete_this
+
+    s->top = s->top->next
+    return true
+
+
+
+'''
