@@ -5,8 +5,9 @@
 
 #include "stack_calculator.h"
 
+#define BUFSIZE 512
+
 int main(void) {
-  const int BUFSIZE=512;
   char buf[BUFSIZE];
   FILE* infile;
   infile=fopen("input.txt", "r");
@@ -17,7 +18,6 @@ int main(void) {
   // Read the inputs from the input file and compute one step at a time!
   while((fgets(buf, BUFSIZE, infile) != NULL)) {
     CalculatorItem item;
-    float val;
 
     if (strncmp(buf, "+", 1) == 0) {
       item.type = ADD;
