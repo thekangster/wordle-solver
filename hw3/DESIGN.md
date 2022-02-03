@@ -11,7 +11,7 @@ The calculator works by reading input from the text file. If it reads a number, 
 
 # pseudocode
 
-'''
+```
 bool stack_push(pointer to stack, CalculatorItem item)
     Node *newtop = (Node *)calloc(1, sizeof(Node))
     if newtop is null
@@ -35,5 +35,4 @@ bool stack_pop(pointer to stack, CalculatorItem pointer to output)
     return true
 
 
-
-'''
+```
