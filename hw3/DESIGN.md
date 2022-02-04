@@ -34,7 +34,7 @@ bool stack_pop(pointer to stack s, CalculatorItem pointer to output)
     free delete_this
     return true
 
-bool stack_empty(pointer to stack s)
+bool stack_empty(pointer to s  tack s)
     if (s is NULL or s->top is NULL)
         return true
 
@@ -43,32 +43,35 @@ void stack_delete(pointer to pointer to stack s)
    set pointer to s to NULL 
 
 bool stack_compute_step(pointer to stack, CalculatorItem item)
+    if item.type == NUMBER
+        stack_push(*s, item)
+
     if item.type == ADD
         set float b to *s->top
         stack_pop(pointer to s, *s->top)
         set float a to *s->top
         stack_pop(pointer to s, *s->top)
-        return a + b
+        stack_push(*s, a + b)
 
     if item.type == SUBTRACT
         set float b to *s->top
         stack_pop(pointer to s, *s->top)
         set float a to *s->top
         stack_pop(pointer to s, *s->top)
-        return a - b
+        stack_push(*s, a - b)
 
     if item.type == MULTIPLY
         set float b to *s->top
         stack_pop(pointer to s, *s->top)
         set float a to *s->top
         stack_pop(pointer to s, *s->top)
-        return a * b
+        stack_push(*s, a * b)
 
     if item.type == DIVIDE
         set float b to *s->top
         stack_pop(pointer to s, *s->top)
         set float a to *s->top
         stack_pop(pointer to s, *s->top)
-        return a / b
+        stack_push(*s, a / b)
 
 ```
