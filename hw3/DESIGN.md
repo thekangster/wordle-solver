@@ -12,7 +12,7 @@ The calculator works by reading input from the text file. If it reads a number, 
 # pseudocode
 
 ```
-bool stack_push(pointer to stack, CalculatorItem item)
+bool stack_push(pointer to stack s, CalculatorItem item)
     Node *newtop = (Node *)calloc(1, sizeof(Node))
     if newtop is null
         return false
@@ -22,17 +22,53 @@ bool stack_push(pointer to stack, CalculatorItem item)
     set s->top to newtop
     return true
 
-bool stack_pop(pointer to stack, CalculatorItem pointer to output)
+bool stack_pop(pointer to stack s, CalculatorItem pointer to output)
     if (s is NULL or s->top is NULL)
         return false
     set int result to s->top->data
-    output = result
+    pointer to output = result
 
-    Node pointer to delete_this is s->top
-    free delete_this
-
+    set Node pointer to delete_this to s->top
     s->top = s->top->next
+
+    free delete_this
     return true
 
+bool stack_empty(pointer to stack s)
+    if (s is NULL or s->top is NULL)
+        return true
+
+void stack_delete(pointer to pointer to stack s)
+   free pointer to s
+   set pointer to s to NULL 
+
+bool stack_compute_step(pointer to stack, CalculatorItem item)
+    if item.type == ADD
+        set float b to *s->top
+        stack_pop(pointer to s, *s->top)
+        set float a to *s->top
+        stack_pop(pointer to s, *s->top)
+        return a + b
+
+    if item.type == SUBTRACT
+        set float b to *s->top
+        stack_pop(pointer to s, *s->top)
+        set float a to *s->top
+        stack_pop(pointer to s, *s->top)
+        return a - b
+
+    if item.type == MULTIPLY
+        set float b to *s->top
+        stack_pop(pointer to s, *s->top)
+        set float a to *s->top
+        stack_pop(pointer to s, *s->top)
+        return a * b
+
+    if item.type == DIVIDE
+        set float b to *s->top
+        stack_pop(pointer to s, *s->top)
+        set float a to *s->top
+        stack_pop(pointer to s, *s->top)
+        return a / b
 
 ```
