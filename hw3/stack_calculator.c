@@ -60,9 +60,9 @@ void stack_delete(Stack **s) {
     CalculatorItem n;
     while ((*s)->top != NULL) {
         stack_pop(*s, &n);
+    }
     free(*s);
     *s = NULL;
-    }
 }
 
 // Returns true if we were able to successfully perform the computation step,
@@ -71,6 +71,12 @@ bool stack_compute_step(Stack *s, CalculatorItem item) {
   // your code here
     CalculatorItem result;
     CalculatorItem sol;
+    
+    if (item.type != NUMBER) {
+        if (s->top == NULL || s->top->next == NULL) {
+            return false;
+        }
+    }
 
     if (item.type == NUMBER) {
         stack_push(s, item);
@@ -109,6 +115,9 @@ bool stack_compute_step(Stack *s, CalculatorItem item) {
 
     if (item.type == DIVIDE) {
         float b = s->top->item.value;
+        if (b == 0) {
+            return false;
+        }
         stack_pop(s, &result);
         float a = s->top->item.value;
         stack_pop(s, &result);
