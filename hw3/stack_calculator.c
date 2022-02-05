@@ -74,6 +74,7 @@ bool stack_compute_step(Stack *s, CalculatorItem item) {
 
     if (item.type == NUMBER) {
         stack_push(s, item);
+        return true;
     }
 
     if (item.type == ADD) {
