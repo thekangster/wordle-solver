@@ -94,6 +94,7 @@ function would return a new linked list (you'll have to allocate it with
 
 YOUR PLAN & EXPLANATION HERE (code goes in midterm.c)
 
+Create a temp linked list that points to the given linked lists next node. Then we create a new linked list node that points to NULL. Add a node to the front that represents the map function on the front node's value. Then create a newtemp linked list that is equal to the linked list we want to return. While the temp linked list is not NULL, we want to dynamically allocate space for a node and set the node's value to the map function on the temp linked list's node's value. Then set the newtemp's next node to the linked list we want to allocate new nodes to. Then set temp to the next node and go through the while loop til the end of the linked list. Return the new linked list.
 
 ## problem 4
 
@@ -129,9 +130,13 @@ numbers)
 
 YOUR ANSWER HERE
 
+The first line creates an array (f) of floats. The second line creates a float pointer to the address of a variable p. The third line sets the pointer variable to f. The fourth line increments the p. p is then set to the float array, so if we increment p, it will give us a memory address of the array plus 1 times the number of bits in a float (8). Therefore, the value of p + 5 would be 0xC0FF73.
+
 ## problem 6 (short answer)
 In math, how many real numbers are there? Comparatively, in a computer, how many
 floating point numbers (C type `float`) are there? How could you find out how
 many floating point numbers there are, for sure?
 
 YOUR ANSWER HERE
+
+In math, there are infinitely many real numbers. In a computer, in double precision, 64 bits are used to represent floating-point numbers. It uses 11 bits for the exponent and 52 bits for the mantissa (the part of a floating-point number that represents the significant digits of that number, which is multiplied by the base raised to the exponent to give the actual value of the number). Therefore, we can find out how many floating point numbers there are by calculating how many numbers there are in the range of numbers for floating-point numbers. So we add up the number of numbers in the range 2^(-1022) to 2^(1023).
