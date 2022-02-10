@@ -68,22 +68,49 @@ typedef struct LLfloat {
   struct LLfloat *next;
 } LLfloat;
 
+// add node function
+LLfloat *add_node(float item, LLfloat* rest) {
+  LLfloat *newnode = (LLfloat *)calloc(1, sizeof(LLfloat));
+  newnode->val = item;
+  newnode->next = rest;
+  return newnode;
+}
+
+// print LL
+void walk_list(LLfloat *list) {
+  if (list == NULL) {
+    return;
+  }
+  printf("%f\n", list->val);
+  walk_list(list->next);
+}
+
+// square function
+float square(float x) {
+  return x * x;
+}
+
 LLfloat *map_floats(float (*f)(float), LLfloat *numbers)  {
   // finish this function.
   // Should it be recursive? It's up to you, but it could be recursive!
-  float curr = numbers->val;
-  LLfloat *tmp = numbers->next;
-
+  
+  LLfloat* new = (LLfloat *)calloc(1, sizeof(LLfloat));
   if (numbers == NULL) {
-    return numbers;
+    return new;
   }
-  while (tmp != NULL) {
-    f(curr);
-    tmp = numbers->next;
-    curr = numbers->next->val;
-  }
+/*
+  LLfloat* new = NULL
+  new = add_node(numbers->next, new);
+  new = add_node(numbers->val, new);
+  while (numbers != NULL) {
+    LLfloat* new = (LLfloat *)calloc(1, sizeof(LLfloat));
+    new->val = f(numbers->val);
+    new = numbers->next;
+  }*/
+  
+  new->val = f(numbers->val);
+  return map_floats((*f), numbers->next);
 
-  return numbers;
 }
 
 // PROBLEM 4
@@ -144,5 +171,11 @@ int main(void) {
     printf("sorted order: %d\tshoe size: %d\n", customers[i].customer_id, customers[i].shoe_size);
   }
   */
-
+ 
+  LLfloat *front = NULL;
+  front = add_node(2, front);
+  front = add_node(3, front);
+  front = add_node(4, front);
+  
+  walk_list(map_floats(square, front));
 }
