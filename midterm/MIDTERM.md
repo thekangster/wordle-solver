@@ -66,6 +66,8 @@ size, ascending. Smallest shoe sizes should go first, larger shoe sizes later.
 
 YOUR PLAN & EXPLANATION HERE (code goes in midterm.c)
 
+We want two nested for loops here. Inside the inner loop, we need to check if the customer at index y's shoe size is greater than the customer at index y+1. If it is, we swap their places. Once we check the two neighboring customers while shifting over by one index at a time, we will find that we sorted the largest number in the array to the last index. Therefore we need to swap the customers from the array until y is less than number of customers minus x (minus 1 too because the index starts at 0). Note that I initialize a boolean variable swap that is set to true when at least one swap occurs. If swap is false, that means no swaps happened, meaning that the array is sorted.
+
 ## problem 3
 
 Recall in homework 2, we wrote a function `reduce`, which took a collection of

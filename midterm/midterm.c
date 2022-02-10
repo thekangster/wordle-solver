@@ -42,6 +42,22 @@ typedef struct {
 
 void bubble_sort_customers(ShoeCustomer* customers, int n_customers) {
   // Your code here! Make them sorted!
+  bool swap;
+  ShoeCustomer tmp;
+  for (int x = 0; x < n_customers; x++) {
+    swap = false;
+    for (int y = 0; y < (n_customers - x - 1); y++) {
+      if (customers[y].shoe_size > customers[y+1].shoe_size) {
+        tmp = customers[y];
+        customers[y] = customers[y+1];
+        customers[y+1] = tmp;
+        swap = true;
+      }
+    }
+    if (swap == false) {
+      break;
+    }
+  }
 }
 
 // PROBLEM 3
@@ -68,6 +84,9 @@ unsigned long compute_availability(unsigned long *calendars, int num_users) {
 // put examples for testing your functions in the main! You're going to have to
 // figure out how to test these.
 int main(void) {
+  // PROBLEM 1 TESTS
+
+  /*
   long long *a;
   int x = 26;
   a = fibonacci_numbers(x);
@@ -75,4 +94,43 @@ int main(void) {
     printf("%lld\n", a[i]);
   }
   return 0;
+  */
+
+  // PROBLEM 2 TESTS
+  
+  /*
+  ShoeCustomer chad;
+  chad.shoe_size = 420;
+  chad.customer_id = 5;
+
+  ShoeCustomer godfrey;
+  godfrey.shoe_size = 12;
+  godfrey.customer_id = 4;
+
+  ShoeCustomer mike;
+  mike.shoe_size = 7;
+  mike.customer_id = 3;
+
+  ShoeCustomer gav;
+  gav.shoe_size = 6;
+  gav.customer_id = 2;
+
+  ShoeCustomer gord;
+  gord.shoe_size = 4;
+  gord.customer_id = 1;
+
+  ShoeCustomer customers[5];
+  customers[0] = gord;
+  customers[1] = chad;
+  customers[2] = godfrey;
+  customers[3] = mike;
+  customers[4] = gav;
+
+  bubble_sort_customers(customers, 5);
+
+  for (int i = 0; i < 5; i++) {
+    printf("sorted order: %d\tshoe size: %d\n", customers[i].customer_id, customers[i].shoe_size);
+  }
+  */
+
 }
