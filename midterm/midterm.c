@@ -71,7 +71,19 @@ typedef struct LLfloat {
 LLfloat *map_floats(float (*f)(float), LLfloat *numbers)  {
   // finish this function.
   // Should it be recursive? It's up to you, but it could be recursive!
-  return NULL;
+  float curr = numbers->val;
+  LLfloat *tmp = numbers->next;
+
+  if (numbers == NULL) {
+    return numbers;
+  }
+  while (tmp != NULL) {
+    f(curr);
+    tmp = numbers->next;
+    curr = numbers->next->val;
+  }
+
+  return numbers;
 }
 
 // PROBLEM 4
