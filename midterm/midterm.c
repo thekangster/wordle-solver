@@ -94,23 +94,33 @@ LLfloat *map_floats(float (*f)(float), LLfloat *numbers)  {
   // finish this function.
   // Should it be recursive? It's up to you, but it could be recursive!
   
+  LLfloat *temp = numbers->next;
+  LLfloat *new = NULL;
+  new = add_node(f(numbers->val), new);
+  LLfloat *newtemp = new;
+  
+  while (temp != NULL) {
+    LLfloat *node = (LLfloat *)calloc(1, sizeof(LLfloat));
+    node->val = f(temp->val);
+    newtemp->next = node;
+    newtemp = node;
+    temp = temp->next;
+  }
+  return new;
+
+  /*
   LLfloat* new = (LLfloat *)calloc(1, sizeof(LLfloat));
   if (numbers == NULL) {
+    printf("new list\n");
     return new;
   }
-/*
-  LLfloat* new = NULL
-  new = add_node(numbers->next, new);
-  new = add_node(numbers->val, new);
-  while (numbers != NULL) {
-    LLfloat* new = (LLfloat *)calloc(1, sizeof(LLfloat));
-    new->val = f(numbers->val);
-    new = numbers->next;
-  }*/
-  
-  new->val = f(numbers->val);
-  return map_floats((*f), numbers->next);
 
+  new->next = numbers->next; 
+  new->val = f(numbers->val);
+  printf("new: %f old: %f\n", new->val, numbers->val);
+  printf("recursive call\n");
+  map_floats(f, new->next);
+  */
 }
 
 // PROBLEM 4
@@ -171,11 +181,17 @@ int main(void) {
     printf("sorted order: %d\tshoe size: %d\n", customers[i].customer_id, customers[i].shoe_size);
   }
   */
- 
+
+  // problem 3 tests
+  /* 
   LLfloat *front = NULL;
   front = add_node(2, front);
   front = add_node(3, front);
   front = add_node(4, front);
   
-  walk_list(map_floats(square, front));
+  walk_list(front); //print old LL
+  walk_list(map_floats(square, front)); //print new LL
+  */
+
+
 }
