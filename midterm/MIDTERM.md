@@ -112,6 +112,8 @@ users* are available at that time.
 
 YOUR PLAN & EXPLANATION HERE (code goes in midterm.c)
 
+We want to iterate through the group of users, which are represented by bitvectors. Create the bitvector that shows the users' availabilities. We want to iterate through each bitvector of to find out which days the users are each available. We then want to compare the availability for each user. Set the new bitvector's values to 1 if each user is available (each user has a 1 in the same index of their bitvector), otherwise set the value to 0 (all users are not available). Return the new bitvector.
+
 ## problem 5 (short answer)
 
 Consider the following code snippet:
