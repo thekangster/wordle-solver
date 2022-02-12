@@ -5,7 +5,11 @@ This is the design document for homework 4.
 
 # how the program works
 
-Continuing on the graphs demo we worked on in class, this assignment will show the user a path between two nodes in a graph (if it exists) between two nodes in a graph using bread-first search and depth-first search algorithms.
+Continuing on the graphs demo we worked on in class, this assignment will show the user a path between two nodes in a graph (if it exists) between two nodes in a graph using breadth-first search and depth-first search algorithms. 
+
+Our breadth-first search algorithm will keep a queue of vertices that we would like to explore and queue the neighbors of the current vertex. This will make is so that we are rippling out on all the nodes until we find the path. 
+
+Our depth-first search algorithm will be the same as our breadth-first search algorithm, but we will replace the queue with a stack. This wil make the behavior so that rather than gradually radiating outward from our starting point, the search will plumb the depths of all of the paths reachable for the first child of the current vertex before backing up to consider all of the paths reachable from the current vertex's second child and so on.
 
 # pseudocode
 
