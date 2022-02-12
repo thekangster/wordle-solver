@@ -9,6 +9,7 @@ Continuing on the graphs demo we worked on in class, this assignment will show t
 
 # pseudocode
 
+```
 enqueue path function (takes an LLPath pointer q and Path path):
   calloc newnode
   set newnode's val to val
@@ -47,3 +48,4 @@ bfs function (takes Graph pointer g, int i, int j)
 
 dfs function (takes Graph pointer g, int i, int j)
   same as bfs but replace the queue with a stack
+```
