@@ -110,32 +110,35 @@ void print_path(Path path) {
 // Breadth-first search!
 Path graph_find_path_bfs(Graph *g, int i, int j) {
   // YOUR CODE HERE.
-  
+
   LLint *visited = NULL;
   LLPath *to_visit = NULL;
   
   Path cur;
   cur.steps = 0;
-  cur.vertices_visited[cur.steps] = i;
+  //cur.vertices_visited[0] = i;
+  cur = path_extend(cur, i);
 
   to_visit = enqueue_path(to_visit, cur);
   
   while (to_visit != NULL) {
     dequeue_path(&to_visit, &cur);
-    //cur.vertices_visited[cur.steps] = cur 
-    //cur = path_extend(cur, cur.vertices_visited[cur.steps]);
 
-    if (cur.vertices_visited[cur.steps] == j) {
+    if (cur.vertices_visited[cur.steps-1] == j) {
       return cur;
     }
-     
-    visited = add_to_set(visited, cur.vertices_visited[cur.steps]);
+    
+    visited = add_to_set(visited, cur.vertices_visited[cur.steps-1]);
+    
+    //printf("index:%d vertice: %d\n", cur.steps, cur.vertices_visited[cur.steps]);
 
     for (int n = 0; n < g->vertices; n++) {
       if (graph_has_edge(g, cur.vertices_visited[cur.steps-1], n) && !set_contains(visited, n)) {
+        //printf("v: %d, n: %d g->vert: %d\n", cur.vertices_visited[cur.steps], n, g->vertices);
         cur = path_extend(cur, n);
+        //printf("step after extend %d\n", cur.steps);
         to_visit = enqueue_path(to_visit, cur);
-       // visited = add_to_set(visited, cur.vertices_visited[cur.steps]);
+        print_path(cur);
       }
     }
   }
