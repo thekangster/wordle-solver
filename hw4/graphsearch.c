@@ -113,25 +113,29 @@ Path graph_find_path_bfs(Graph *g, int i, int j) {
   
   LLint *visited = NULL;
   LLPath *to_visit = NULL;
-  Path sol;
-  sol.steps = 0;
-  sol.vertices_visited[sol.steps] = i;
+  
+  Path cur;
+  cur.steps = 0;
+  cur.vertices_visited[cur.steps] = i;
 
-  to_visit = enqueue_path(to_visit, sol);
+  to_visit = enqueue_path(to_visit, cur);
   
   while (to_visit != NULL) {
-    Path current;
-    dequeue_path(&to_visit, &current);
-    sol = path_extend(sol, current.vertices_visited[current.steps]);
+    dequeue_path(&to_visit, &cur);
+    //cur.vertices_visited[cur.steps] = cur 
+    //cur = path_extend(cur, cur.vertices_visited[cur.steps]);
 
-    if (current.vertices_visited[current.steps] == j) {
-      return sol;
+    if (cur.vertices_visited[cur.steps] == j) {
+      return cur;
     }
+     
+    visited = add_to_set(visited, cur.vertices_visited[cur.steps]);
 
     for (int n = 0; n < g->vertices; n++) {
-      if (graph_has_edge(g, current.vertices_visited[current.steps], n) && !set_contains(visited, n)) {
-        to_visit = enqueue_path(to_visit, sol);
-        current.steps += 1;
+      if (graph_has_edge(g, cur.vertices_visited[cur.steps-1], n) && !set_contains(visited, n)) {
+        cur = path_extend(cur, n);
+        to_visit = enqueue_path(to_visit, cur);
+       // visited = add_to_set(visited, cur.vertices_visited[cur.steps]);
       }
     }
   }
