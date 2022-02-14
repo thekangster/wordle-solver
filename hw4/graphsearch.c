@@ -107,6 +107,42 @@ void print_path(Path path) {
   puts("");
 }
 
+Stack *stack_create(void) {
+  Stack *out;
+  
+  out = (Stack *)calloc(1, sizeof(Stack));
+  return out;
+}
+
+bool stack_push(Stack *s, Path path) {
+  SPath *newtop = calloc(1, sizeof(SPath));
+
+  if (newtop == NULL) {
+    return false;
+  }
+  
+  newtop->val = path;
+  newtop->next = s->top;
+
+  s->top = newtop;
+  return true;
+}
+
+bool stack_pop(Stack *s, Path *val) {
+  if (s == NULL || s->top == NULL) {
+    return false;
+  }
+
+  Path result = s->top->val;
+  *val = result;
+
+  SPath *delete_this = s->top;
+  s->top; = s->top->next;
+
+  free(delete_this);
+  return true;
+}
+
 // Breadth-first search!
 Path graph_find_path_bfs(Graph *g, int i, int j) {
   // YOUR CODE HERE.
@@ -116,7 +152,6 @@ Path graph_find_path_bfs(Graph *g, int i, int j) {
   
   Path cur;
   cur.steps = 0;
-  //cur.vertices_visited[0] = i;
   cur = path_extend(cur, i);
 
   to_visit = enqueue_path(to_visit, cur);
@@ -130,15 +165,13 @@ Path graph_find_path_bfs(Graph *g, int i, int j) {
     
     visited = add_to_set(visited, cur.vertices_visited[cur.steps-1]);
     
-    //printf("index:%d vertice: %d\n", cur.steps, cur.vertices_visited[cur.steps]);
-
+    Path copy;
+    copy = cur;
     for (int n = 0; n < g->vertices; n++) {
+      cur = copy;
       if (graph_has_edge(g, cur.vertices_visited[cur.steps-1], n) && !set_contains(visited, n)) {
-        //printf("v: %d, n: %d g->vert: %d\n", cur.vertices_visited[cur.steps], n, g->vertices);
         cur = path_extend(cur, n);
-        //printf("step after extend %d\n", cur.steps);
         to_visit = enqueue_path(to_visit, cur);
-        print_path(cur);
       }
     }
   }
@@ -151,30 +184,38 @@ Path graph_find_path_dfs(Graph *g, int i, int j) {
   // YOUR CODE HERE.
   
   LLint *visited = NULL;
-  LLPath *to_visit = NULL;
-  Path sol;
-  sol.steps = 0;
-  sol.vertices_visited[sol.steps] = i;
-
-  to_visit = enqueue_path(to_visit, sol);
+  Stack *to_visit;
+  to_visit = stack_create();
   
+  Path cur;
+  cur.steps = 0;
+  cur = path_extend(cur, i);
+
+  //to_visit = enqueue_path(to_visit, cur);
+  stack_push(to_visit, cur);
+
   while (to_visit != NULL) {
-    Path current;
-    dequeue_path(&to_visit, &current);
-    sol = path_extend(sol, current.vertices_visited[current.steps]);
+    //dequeue_path(&to_visit, &cur);
+    stack_pop(to_visit, &cur);
 
-    if (current.vertices_visited[current.steps] == j) {
-      return sol;
+    if (cur.vertices_visited[cur.steps-1] == j) {
+      return cur;
     }
-
+    
+    visited = add_to_set(visited, cur.vertices_visited[cur.steps-1]);
+    
+    Path copy;
+    copy = cur;
     for (int n = 0; n < g->vertices; n++) {
-      if (graph_has_edge(g, current.vertices_visited[current.steps], n) && !set_contains(visited, n)) {
-        to_visit = enqueue_path(to_visit, sol);
-        current.steps += 1;
+      cur = copy;
+      if (graph_has_edge(g, cur.vertices_visited[cur.steps-1], n) && !set_contains(visited, n)) {
+        cur = path_extend(cur, n);
+        //to_visit = enqueue_path(to_visit, cur);
+        stack_push(to_visit, cur);
       }
     }
   }
- 
   Path empty = {0, {0}};
   return empty;
+
 }

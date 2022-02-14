@@ -3,6 +3,17 @@
 // maximum number of vertices we're willing to have in a graph, for simplicity.
 #define MAX_GRAPH_SIZE 128
 
+typedef struct SPath SPath;
+
+struct SPath {
+  SPath *next;
+  Path val;
+};
+
+typedef struct {
+  SPath *top;
+} Stack;
+
 typedef struct {
   int vertices;  // the set V
   int **matrix;  // the set E
@@ -22,6 +33,12 @@ typedef struct LLPath {
   Path val;
   struct LLPath *next;
 } LLPath;
+
+Stack *stack_create(void);
+
+bool stack_push(Stack *s, Path item);
+
+bool stack_pop(Stack *s, Path *val);
 
 LLint *add_to_set(LLint *set, int val);
 bool set_contains(LLint *set, int val);
