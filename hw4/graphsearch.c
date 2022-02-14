@@ -144,6 +144,33 @@ bool stack_pop(Stack *s, Path *val) {
   return true;
 }
 
+void set_delete(LLint *set) {
+  LLint *tmp;
+  while (set != NULL) {
+    tmp = set;
+    set = set->next;
+    free(tmp);
+  }
+}
+
+void queue_delete(LLPath *q) {
+  LLPath *tmp;
+  while (q != NULL) {
+    tmp = q;
+    q = q->next;
+    free(tmp);
+  }
+}
+
+void stack_delete(Stack **s) {
+  Path n;
+  while ((*s)->top != NULL) {
+    stack_pop(*s, &n);
+  }
+  free(*s);
+  *s = NULL;
+}
+
 // Breadth-first search!
 Path graph_find_path_bfs(Graph *g, int i, int j) {
   // YOUR CODE HERE.
@@ -161,6 +188,8 @@ Path graph_find_path_bfs(Graph *g, int i, int j) {
     dequeue_path(&to_visit, &cur);
 
     if (cur.vertices_visited[cur.steps-1] == j) {
+      set_delete(visited);
+      queue_delete(to_visit);
       return cur;
     }
     
@@ -177,6 +206,9 @@ Path graph_find_path_bfs(Graph *g, int i, int j) {
     }
   }
   Path empty = {0, {0}};
+  set_delete(visited);
+  queue_delete(to_visit);
+
   return empty;
 }
 
@@ -198,6 +230,7 @@ Path graph_find_path_dfs(Graph *g, int i, int j) {
     stack_pop(to_visit, &cur);
 
     if (cur.vertices_visited[cur.steps-1] == j) {
+      stack_delete(&to_visit);
       return cur;
     }
     
@@ -214,6 +247,7 @@ Path graph_find_path_dfs(Graph *g, int i, int j) {
     }
   }
   Path empty = {0, {0}};
+  stack_delete(&to_visit);
   return empty;
 
 }
