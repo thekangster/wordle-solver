@@ -5,6 +5,11 @@
 
 typedef struct SPath SPath;
 
+typedef struct {
+  int steps;
+  int vertices_visited[MAX_GRAPH_SIZE];
+} Path;
+
 struct SPath {
   SPath *next;
   Path val;
@@ -23,11 +28,6 @@ typedef struct LLint {
   int val;
   struct LLint *next;
 } LLint;
-
-typedef struct {
-  int steps;
-  int vertices_visited[MAX_GRAPH_SIZE];
-} Path;
 
 typedef struct LLPath {
   Path val;

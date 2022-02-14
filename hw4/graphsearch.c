@@ -111,6 +111,7 @@ Stack *stack_create(void) {
   Stack *out;
   
   out = (Stack *)calloc(1, sizeof(Stack));
+  out->top = NULL;
   return out;
 }
 
@@ -137,7 +138,7 @@ bool stack_pop(Stack *s, Path *val) {
   *val = result;
 
   SPath *delete_this = s->top;
-  s->top; = s->top->next;
+  s->top = s->top->next;
 
   free(delete_this);
   return true;
@@ -191,11 +192,9 @@ Path graph_find_path_dfs(Graph *g, int i, int j) {
   cur.steps = 0;
   cur = path_extend(cur, i);
 
-  //to_visit = enqueue_path(to_visit, cur);
   stack_push(to_visit, cur);
 
-  while (to_visit != NULL) {
-    //dequeue_path(&to_visit, &cur);
+  while (to_visit->top != NULL) {
     stack_pop(to_visit, &cur);
 
     if (cur.vertices_visited[cur.steps-1] == j) {
@@ -206,11 +205,10 @@ Path graph_find_path_dfs(Graph *g, int i, int j) {
     
     Path copy;
     copy = cur;
-    for (int n = 0; n < g->vertices; n++) {
+    for (int n = g->vertices-1; n > i; n--) {
       cur = copy;
       if (graph_has_edge(g, cur.vertices_visited[cur.steps-1], n) && !set_contains(visited, n)) {
         cur = path_extend(cur, n);
-        //to_visit = enqueue_path(to_visit, cur);
         stack_push(to_visit, cur);
       }
     }

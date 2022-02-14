@@ -11,6 +11,8 @@ Our breadth-first search algorithm will keep a queue of vertices that we would l
 
 Our depth-first search algorithm will be the same as our breadth-first search algorithm, but we will replace the queue with a stack. This wil make the behavior so that rather than gradually radiating outward from our starting point, the search will plumb the depths of all of the paths reachable for the first child of the current vertex before backing up to consider all of the paths reachable from the current vertex's second child and so on.
 
+For the stack implementation, I created a SPath struct that holds a Path val and a pointer to a next SPath struct. My Stack struct holds an SPath struct called top. I also have a stack_create function that simplifies the stack initialization. The stack_push function puts a path onto the top of the stack and the stack_pop function removes the top path of the stack.
+
 # pseudocode
 
 ```
@@ -42,14 +44,28 @@ dequeue function (takes LLpath double pointer q and Path pointer ret
 bfs function (takes Graph pointer g, int i, int j)
   keep a set of vertices that we have visited
   keep a queue of vertices that we want to visit
-  put the starting vertex into the queue
+  initialize a path and set steps to 0
+  extend the path by i
+  queue the vertex i
   while there are more places to visit in the queue
     dequeue the next place to visit
     if it is our intended destination
       return the path
     else make sure it is in the set of visited nodes
-      enqueue each of its neighbors that have not been visited
+    enqueue each of its neighbors that have not been visited
+  return empty path  
 
 dfs function (takes Graph pointer g, int i, int j)
-  same as bfs but replace the queue with a stack
+  keep a set of vertices that we have visited
+  keep a stack of vertices that we want to visit
+  initialize path and set steps to 0
+  extend the path by i
+  push i onto the stack
+  while there are more places to visit in the stack
+    pop the next place to visit
+    if it is our intended destination
+      return the path
+    else make sure it is in the set of visited nodes
+    push each of its neighbors that havent been visited onto the stack
+  return empty path
 ```
