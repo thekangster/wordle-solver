@@ -59,6 +59,12 @@ int main(int argc, char **argv) {
   printf("searching with DFS from %d to %d\n", start, end);
   path = graph_find_path_dfs(g, start, end);
   print_path(path);
+  
+  for (int i = 0; i < g->vertices; i++) {
+    free(g->matrix[i]);
+  }
+  free(g);
 
+  fclose(infile);
   return 0;
 }
