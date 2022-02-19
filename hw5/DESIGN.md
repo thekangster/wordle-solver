@@ -8,7 +8,7 @@ This is the design document for homework 5.
 This program is a version of wordle, a word-guessing game. The player must guess a 5-letter word for each turn and the game compares the guess to the secret word. After the guess, the program returns a response that can either be a gray, yellow, or green square in the place of the corresponding letter in the word. A gray square indicates the letter does not appear in the secret word, yellow indicates the letter appears in the secret word but not in that corresponding slot, and green indicates the corresponding letter appears in the secret word in that slot. 
 
 # pseudocode
-
+```
 score_guess
   initialize bool match
   for index up to 6
@@ -25,11 +25,23 @@ score_guess
 
 valid_guess
   for index up to num_words
-    if guess is equal to vocabulary[index]
+    if strcmp(guess, vocabulary[index]) == 0
       return true
   return false 
 
 load_vocabulary
-  allocate memory for out
-  open filename
-  for
+  set char **out to calloc(2309 * sizeof(char *))
+  set infile to fopen(filename, "r")
+  set index to 0
+  while(1)
+    set s to fgets(**out, 7, filename)
+    if s is EOF
+      break
+    set **out[index] to s
+  fclose(filename)
+
+free_vocabulary
+  for index up to num_words
+    free(vocabulary[index])
+  free(vocabulary)
+```    
