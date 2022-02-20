@@ -16,7 +16,19 @@
 //   5. (ie, at least 6 bytes long)
 bool score_guess(char *secret, char *guess, char *result) {
   // TODO(you): finish this function
-
+  bool match;
+  for (int index = 0; index < 6; index++) {
+    if (guess[index] == secret[index]) {
+      match = true;
+      result[index] = 'g';
+    } else if (strchr(secret, guess[index]) == NULL && guess[index] != secret[index]) {
+      match = false;
+      result[index] = 'y';
+    } else {
+      match = false;
+      result[index] = 'x';
+    }
+  }
   return false;
 }
 
@@ -26,7 +38,11 @@ bool score_guess(char *secret, char *guess, char *result) {
 // but consider: could you do this search more quickly?
 bool valid_guess(char *guess, char **vocabulary, size_t num_words) {
   // TODO(you): finish this function
-
+  for (size_t i = 0; i < num_words; i++) {
+    if (strcmp(guess, vocabulary[i]) == 0) {
+      return true;
+    }
+  }
   return false;
 }
 
@@ -45,9 +61,20 @@ bool valid_guess(char *guess, char **vocabulary, size_t num_words) {
 // Each element of the array should be a single five-letter word,
 // null-terminated.
 char **load_vocabulary(char *filename, size_t *num_words) {
-  char **out = NULL;
+  char **out = calloc(2309, sizeof(char *));
   // TODO(you): finish this function
+  FILE *infile;
+  infile = fopen(filename, "r");
+  int s;
+  size_t *num_words = 2309;
 
+  for (size_t index = 0; index < 2309; index++) {
+    s = fgets(*out, 7, filename);
+    if (s == EOF) {
+      break;
+    }
+    *out[index] = s;
+  }
   return out;
 }
 
@@ -55,6 +82,10 @@ char **load_vocabulary(char *filename, size_t *num_words) {
 // itself (which points to an array of char *).
 void free_vocabulary(char **vocabulary, size_t num_words) {
   // TODO(you): finish this function
+  for (size_t index = 0; index < num_words; index++) {
+    free(vocabulary[index]);
+  }
+  free(vocabulary);
 }
 
 // Once your other functions are working, please revert your main() to its
