@@ -61,20 +61,41 @@ bool valid_guess(char *guess, char **vocabulary, size_t num_words) {
 // Each element of the array should be a single five-letter word,
 // null-terminated.
 char **load_vocabulary(char *filename, size_t *num_words) {
-  char **out = calloc(2309, sizeof(char *));
+  /*char **out = NULL;
+  out = calloc(2309, sizeof(char *));
   // TODO(you): finish this function
+  printf("didnt segfault");
   FILE *infile;
   infile = fopen(filename, "r");
-  int s;
-  size_t *num_words = 2309;
 
-  for (size_t index = 0; index < 2309; index++) {
-    s = fgets(*out, 7, filename);
-    if (s == EOF) {
+  for (int index = 0; index < 2309; index++) {
+    test = fgets(*out, 7, infile);
+    if (test == EOF) {
       break;
     }
-    *out[index] = s;
+    out[index] = test;
+    num_words++;
   }
+  fclose(infile);
+  return out;*/
+
+  *num_words = 0;
+  char buf[500];
+  char **out = NULL;
+  size_t maxlen = 500;
+  out = calloc(maxlen, sizeof(char *));
+
+  FILE *infile;
+  infile = fopen(filename, "r");
+  while (fgets(buf, 7, infile) != NULL) {
+    out[(*num_words)++] = strdup(buf);
+    if (*num_words == maxlen) {
+      void *tmp = realloc(out, maxlen * 2 * sizeof(*out));
+      out = tmp;
+      maxlen *= 2;
+    }
+  }
+  fclose(infile);
   return out;
 }
 
@@ -97,10 +118,13 @@ int main(void) {
   int num_guesses = 0;
 
   srand(time(NULL));
-
+  
   // load up the vocabulary and store the number of words in it.
   vocabulary = load_vocabulary("vocabulary.txt", &num_words);
-
+  
+  for (int i = 0; i < 5; i++) {
+    printf("%s\n", vocabulary[0]);
+  }
   // Randomly select one of the words from the file to be today's SECRET WORD.
   int word_index = rand() % num_words;
   char *secret = vocabulary[word_index];
