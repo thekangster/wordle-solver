@@ -109,7 +109,7 @@ int main(void) {
   size_t num_words;
   int num_guesses = 0;
 
-  //srand(time(NULL));
+  srand(time(NULL));
   // load up the vocabulary and store the number of words in it.
   vocabulary = load_vocabulary("vocabulary.txt", &num_words);
   
