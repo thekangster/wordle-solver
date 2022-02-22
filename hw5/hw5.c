@@ -114,8 +114,8 @@ int main(void) {
   vocabulary = load_vocabulary("vocabulary.txt", &num_words);
   
   // Randomly select one of the words from the file to be today's SECRET WORD.
-  //int word_index = rand() % num_words;
-  char *secret = vocabulary[0];//vocabulary[word_index];
+  int word_index = rand() % num_words;
+  char *secret = vocabulary[word_index];
 
   // input buffer -- we'll use this to get a guess from the user.
   char guess[80];
