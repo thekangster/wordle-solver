@@ -14,7 +14,7 @@ int score_letter(char letter, char **vocabulary, size_t num_words) {
 
   // TODO(you): implement this function!
   int count = 0;
-  for (int index = 0; index < num_words; index++) {
+  for (int index = 0; index < (int)num_words; index++) {
     for (int i = 0; i < 5; i++) {      
       if (vocabulary[index][i] == letter) {
         count += 1;
@@ -35,13 +35,16 @@ int score_word(char *word, int *letter_scores) {
   
   // TODO(you): implement this function!
   int score = 0;
-  for (int i = 0; i < 26; i++) {
-    for (int j = 0; j < 5; j++) {
-      if (word
+  int num;
+  char letter[2];
+  for (int i = 0; i < 5; i++) {
+    letter[0] = word[i];
+    num = strtol(letter, NULL, 36) - 10;
+    if (letter_scores[num] > 0) {
+      score += 1;
     }
   }
   return 0;
-
 }
 
 // Returns the optimum guess, based on our heuristic.
@@ -80,8 +83,14 @@ size_t filter_vocabulary_gray(char letter, char **vocabulary,
                               size_t num_words) {
 
   // TODO(you): implement this function!
-  return 0;
-
+  for (int i = 0; i < (int)num_words; i++) {
+    if (strchr(vocabulary[i], letter) == NULL) {
+      free(vocabulary[i]);
+      vocabulary[i] = NULL;
+      num_words -= 1;
+    }
+  }  
+  return num_words;
 }
 
 // This function will filter down the vocabulary based on the knowledge that the
@@ -93,8 +102,18 @@ size_t filter_vocabulary_yellow(char letter, int position, char **vocabulary,
                                 size_t num_words) {
 
   // TODO(you): implement this function!
-  return 0;
-
+  for (int i = 0; i < (int)num_words; i++) {
+    if (strchr(vocabulary[i], letter) == NULL) {
+      free(vocabulary[i]);
+      vocabulary[i] = NULL;
+      num_words -= 1;
+    } else if (strchr(vocabulary[i], letter) != NULL && vocabulary[i][position] == letter) {
+      free(vocabulary[i]);
+      vocabulary[i] = NULL;
+      num_words -= 1;
+    } 
+  }
+  return num_words;
 }
 
 
@@ -106,8 +125,18 @@ size_t filter_vocabulary_green(char letter, int position, char **vocabulary,
                                size_t num_words) {
 
   // TODO(you): implement this function!
-  return 0;
-
+  for (int i = 0; i < (int)num_words; i++) {
+    if (strchr(vocabulary[i], letter) == NULL) {
+      free(vocabulary[i]);
+      vocabulary[i] = NULL;
+      num_words -= 1;
+    } else if (strchr(vocabulary[i], letter) != NULL && vocabulary[i][position] != letter) {
+      free(vocabulary[i]);
+      vocabulary[i] = NULL;
+      num_words -= 1;
+    } 
+  }
+  return num_words;
 }
 
 // Free each of the strings in the vocabulary, as well as the pointer vocabulary
