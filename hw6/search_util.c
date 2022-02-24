@@ -13,8 +13,15 @@
 int score_letter(char letter, char **vocabulary, size_t num_words) {
 
   // TODO(you): implement this function!
-  return 0;
-
+  int count = 0;
+  for (int index = 0; index < num_words; index++) {
+    for (int i = 0; i < 5; i++) {      
+      if (vocabulary[index][i] == letter) {
+        count += 1;
+      }
+    }
+  }
+  return count;
 }
 
 
@@ -25,8 +32,14 @@ int score_letter(char letter, char **vocabulary, size_t num_words) {
 // letters*. So if the letter 'e' occurs three times, it only contributes to the
 // score once.
 int score_word(char *word, int *letter_scores) {
-
+  
   // TODO(you): implement this function!
+  int score = 0;
+  for (int i = 0; i < 26; i++) {
+    for (int j = 0; j < 5; j++) {
+      if (word
+    }
+  }
   return 0;
 
 }
