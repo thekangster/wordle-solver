@@ -36,15 +36,22 @@ int score_word(char *word, int *letter_scores) {
   // TODO(you): implement this function!
   int score = 0;
   int num;
+  char seen[5] = {0};
   char letter[2];
   for (int i = 0; i < 5; i++) {
     letter[0] = word[i];
     num = strtol(letter, NULL, 36) - 10;
-    if (letter_scores[num] > 0) {
-      score += 1;
+    if (letter_scores[num] > 0 && seen[i] == 0) {
+      score = score + letter_scores[num];
+    }
+    for (int j = 0; j < 5; j++) {
+      if (word[i] == word[j]) {
+        seen[i] = 1;
+        seen[j] = 1;
+      } 
     }
   }
-  return 0;
+  return score;
 }
 
 // Returns the optimum guess, based on our heuristic.
