@@ -13,12 +13,19 @@
 int score_letter(char letter, char **vocabulary, size_t num_words) {
 
   // TODO(you): implement this function!
-  int count = 0;
+  /*int count = 0;
   for (int index = 0; index < (int)num_words; index++) {
     for (int i = 0; i < 5; i++) {      
       if (vocabulary[index][i] == letter) {
         count += 1;
       }
+    }
+  }
+  return count;*/
+  int count = 0;
+  for (int index = 0; index < (int)num_words; index++) {
+    if (strchr(vocabulary[index], letter)) {
+      count += 1;
     }
   }
   return count;
@@ -36,7 +43,7 @@ int score_word(char *word, int *letter_scores) {
   // TODO(you): implement this function!
   int score = 0;
   int num;
-  char seen[5] = {0};
+  int seen[5] = {0, 0, 0, 0, 0};
   char letter[2];
   for (int i = 0; i < 5; i++) {
     letter[0] = word[i];
@@ -94,6 +101,14 @@ size_t filter_vocabulary_gray(char letter, char **vocabulary,
     if (strchr(vocabulary[i], letter) == NULL) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
+      if (i == (int)num_words - 1) {
+        num_words -= 1;
+        return num_words;
+      }
+      for (int j = i; j < (int)num_words; j++) {
+        vocabulary[j] = vocabulary[j+1];
+      }
+      i -= 1;
       num_words -= 1;
     }
   }  
@@ -113,10 +128,26 @@ size_t filter_vocabulary_yellow(char letter, int position, char **vocabulary,
     if (strchr(vocabulary[i], letter) == NULL) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
+      if (i == (int)num_words - 1) {
+        num_words -= 1;
+        return num_words;
+      }
+      for (int j = i; j < (int)num_words; j++) {
+        vocabulary[j] = vocabulary[j+1];
+      }
+      i -= 1;
       num_words -= 1;
     } else if (strchr(vocabulary[i], letter) != NULL && vocabulary[i][position] == letter) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
+      if (i == (int)num_words -1) {
+        num_words -= 1;
+        return num_words;
+      }
+      for (int j = i; j < (int)num_words; j++) {
+        vocabulary[j] = vocabulary[j+1];
+      }
+      i -= 1;
       num_words -= 1;
     } 
   }
@@ -136,10 +167,26 @@ size_t filter_vocabulary_green(char letter, int position, char **vocabulary,
     if (strchr(vocabulary[i], letter) == NULL) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
+      if (i == (int)num_words - 1) {
+        num_words -= 1;
+        return num_words;
+      }
+      for (int j = i; j < (int)num_words; j++) {
+        vocabulary[j] = vocabulary[j+1];
+      }
+      i -= 1;
       num_words -= 1;
     } else if (strchr(vocabulary[i], letter) != NULL && vocabulary[i][position] != letter) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
+      if (i == (int)num_words - 1) {
+        num_words -= 1;
+        return num_words;
+      }
+      for (int j = i; j < (int)num_words; j++) {
+        vocabulary[j] = vocabulary[j+1];
+      }
+      i -= 1;
       num_words -= 1;
     } 
   }
