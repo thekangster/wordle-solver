@@ -15,6 +15,7 @@ To limit the vocabulary based on green responses, we eliminate the word from the
 
 # pseudocode
 
+```
 score letter
   set count var to 0
   for index to 6
@@ -78,3 +79,4 @@ filter_vocabulary_green
       set vocab[i] to NULL
       increment filtered
   return filtered
+```
