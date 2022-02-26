@@ -95,24 +95,20 @@ char *get_guess(char **vocabulary, size_t num_words) {
 // Returns the number of words that have been filtered from the vocabulary.
 size_t filter_vocabulary_gray(char letter, char **vocabulary,
                               size_t num_words) {
-
+  
   // TODO(you): implement this function!
+  size_t filtered = 0;
   for (int i = 0; i < (int)num_words; i++) {
+    if (vocabulary[i] == NULL) {
+      continue;
+    }
     if (strchr(vocabulary[i], letter) == NULL) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
-      if (i == (int)num_words - 1) {
-        num_words -= 1;
-        return num_words;
-      }
-      for (int j = i; j < (int)num_words; j++) {
-        vocabulary[j] = vocabulary[j+1];
-      }
-      i -= 1;
-      num_words -= 1;
+      filtered += 1;
     }
   }  
-  return num_words;
+  return filtered;
 }
 
 // This function will filter down the vocabulary based on the knowledge that the
@@ -124,34 +120,22 @@ size_t filter_vocabulary_yellow(char letter, int position, char **vocabulary,
                                 size_t num_words) {
 
   // TODO(you): implement this function!
+  size_t filtered = 0;
   for (int i = 0; i < (int)num_words; i++) {
+    if (vocabulary[i] == NULL) {
+      continue;
+    }
     if (strchr(vocabulary[i], letter) == NULL) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
-      if (i == (int)num_words - 1) {
-        num_words -= 1;
-        return num_words;
-      }
-      for (int j = i; j < (int)num_words; j++) {
-        vocabulary[j] = vocabulary[j+1];
-      }
-      i -= 1;
-      num_words -= 1;
+      filtered += 1;
     } else if (strchr(vocabulary[i], letter) != NULL && vocabulary[i][position] == letter) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
-      if (i == (int)num_words -1) {
-        num_words -= 1;
-        return num_words;
-      }
-      for (int j = i; j < (int)num_words; j++) {
-        vocabulary[j] = vocabulary[j+1];
-      }
-      i -= 1;
-      num_words -= 1;
+      filtered += 1;
     } 
   }
-  return num_words;
+  return filtered;
 }
 
 
@@ -163,34 +147,22 @@ size_t filter_vocabulary_green(char letter, int position, char **vocabulary,
                                size_t num_words) {
 
   // TODO(you): implement this function!
+  size_t filtered = 0;
   for (int i = 0; i < (int)num_words; i++) {
+    if (vocabulary[i] == NULL) {
+      continue;
+    }
     if (strchr(vocabulary[i], letter) == NULL) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
-      if (i == (int)num_words - 1) {
-        num_words -= 1;
-        return num_words;
-      }
-      for (int j = i; j < (int)num_words; j++) {
-        vocabulary[j] = vocabulary[j+1];
-      }
-      i -= 1;
-      num_words -= 1;
+      filtered += 1;
     } else if (strchr(vocabulary[i], letter) != NULL && vocabulary[i][position] != letter) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
-      if (i == (int)num_words - 1) {
-        num_words -= 1;
-        return num_words;
-      }
-      for (int j = i; j < (int)num_words; j++) {
-        vocabulary[j] = vocabulary[j+1];
-      }
-      i -= 1;
-      num_words -= 1;
+      filtered += 1;
     } 
   }
-  return num_words;
+  return filtered;
 }
 
 // Free each of the strings in the vocabulary, as well as the pointer vocabulary
