@@ -13,17 +13,11 @@
 int score_letter(char letter, char **vocabulary, size_t num_words) {
 
   // TODO(you): implement this function!
-  /*int count = 0;
-  for (int index = 0; index < (int)num_words; index++) {
-    for (int i = 0; i < 5; i++) {      
-      if (vocabulary[index][i] == letter) {
-        count += 1;
-      }
-    }
-  }
-  return count;*/
   int count = 0;
   for (int index = 0; index < (int)num_words; index++) {
+    if (vocabulary[index] == NULL) {
+      continue;
+    }
     if (strchr(vocabulary[index], letter)) {
       count += 1;
     }
@@ -102,7 +96,7 @@ size_t filter_vocabulary_gray(char letter, char **vocabulary,
     if (vocabulary[i] == NULL) {
       continue;
     }
-    if (strchr(vocabulary[i], letter) == NULL) {
+    if (strchr(vocabulary[i], letter) != NULL) {
       free(vocabulary[i]);
       vocabulary[i] = NULL;
       filtered += 1;
