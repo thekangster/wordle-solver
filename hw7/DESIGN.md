@@ -12,12 +12,13 @@ The program should read customers.tsv and store the customers into the hash tabl
 `add`: the program will additionally prompt the user for an email address, a display name, a shoe size, and a favorite food. This user (with their associated data) will then be added to the hash table. If that email address is already present in the has table, then replace the data that was already in the hash table with the new entry.
 
 # pseudocode
-
+`
 struct 
   string email
   string name
   int shoe_size
   string fav_food
+`
 
 # how to run it
 
