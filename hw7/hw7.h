@@ -3,23 +3,18 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct CustomerInfo {
-  char *email;
-  char *name;
-  int shoe_size;
-  char *fav_food;
-} CustomerInfo;
-
 typedef struct CustomerNode {
-  char *key;
-  CustomerInfo *val;
+  char *email;  // the key
+  char *name;   // value 
+  int shoe_size; // value
+  char *fav_food; // value
   struct CustomerNode *next;
 } CustomerNode;
 
 unsigned long hash(char*str);
 
-CustomerNode *add_to_list(char *email, CustomerInfo data, CustomerNode *bucket);
+CustomerNode *add_to_list(char *email, char *name, int shoe_size, char *fav_food, CustomerNode *bucket);
 
-void add_to_hashtable(char *email, CustomerInfo data, CustomerNode **buckets, size_t num_buckets);
+void add_to_hashtable(char *email, char *name, int shoe_size, char *fav_food, CustomerNode **buckets, size_t num_buckets);
 
-
+char *fav_food_for_customer(char *email, CustomerNode **buckets, size_t num_buckets);

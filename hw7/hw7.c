@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define NUM_BUCKETS 20
+#define NUM_BUCKETS 100
 
 unsigned long hash(char *str) {
   unsigned long hash = 5381;
@@ -19,20 +19,28 @@ unsigned long hash(char *str) {
   return hash;
 }
 
-CustomerNode *add_to_list(char *email, CustomerInfo data, CustomerNode *bucket) {
+CustomerNode *add_to_list(char *email, char *name, int shoe_size, char *fav_food, CustomerNode *bucket) {
   
   CustomerNode* new_customer;
-
-  new_customer = malloc(sizeof(CustomerNode));
-  new_customer->key = strdup(email);
-  new_customer->val->email = strdup(data.email);
-  new_customer->val->name = strdup(data.name);
-  new_customer->val->shoe_size = data.shoe_size;
-  new_customer->val->fav_food = strdup(data.fav_food);
   
+  new_customer = malloc(sizeof(CustomerNode));
+  new_customer->email = strdup(email);
+  new_customer->name = strdup(name);
+  new_customer->shoe_size = shoe_size;
+  new_customer->fav_food = strdup(fav_food);
+ 
   new_customer->next = bucket;
 
   return new_customer;
+}
+
+void add_to_hashtable(char *email, char *name, int shoe_size, char *fav_food, CustomerNode **buckets, size_t num_buckets) {
+  
+  size_t which_bucket = hash(email) % num_buckets;
+
+  buckets[which_bucket] = add_to_list(email, name, shoe_size, fav_food, buckets[which_bucket]);
+  
+  printf("customer %s goes in bucket %lu .\n", email, which_bucket);
 }
 
 char *fav_food_for_customer(char *email, CustomerNode **buckets, size_t num_buckets) {
@@ -44,39 +52,11 @@ char *fav_food_for_customer(char *email, CustomerNode **buckets, size_t num_buck
   node = buckets[which_bucket];
 
   while(node != NULL) {
-    if (strcmp(node->key, email) == 0) {
-      result = node->val->fav_food;
+    if (strcmp(node->email, email) == 0) {
+      result = node->fav_food;
     }
     node = node->next;
   }
   return result;
 }
 
-void add_to_hashtable(char *email, CustomerInfo data, CustomerNode **buckets, size_t num_buckets) {
-  
-  size_t which_bucket = hash(email) % num_buckets;
-
-  buckets[which_bucket] = add_to_list(email, data, buckets[which_bucket]);
-  
-  printf("customer %s goes in bucket %lu .\n", email, which_bucket);
-}
-
-int main(void) {
-  CustomerNode* buckets[NUM_BUCKETS] = {NULL};
-  CustomerInfo* sammy;
-  sammy = malloc(sizeof(CustomerInfo));
-  sammy->name = "sam the slug";
-  sammy->email = "sammy@ucsc.edu";
-  sammy->shoe_size = 20;
-  sammy->fav_food = "slugs";
-  
-  printf("%s\n%s\n%d\n%s\n", sammy->name, sammy->email, sammy->shoe_size, sammy->fav_food);
-  add_to_hashtable("sammy@ucsc.edu", *sammy, buckets, NUM_BUCKETS);
-  printf("made it here\n"); 
-
-  char *fav_food = NULL;
-  fav_food = fav_food_for_customer("sammy@ucsc.edu", buckets, NUM_BUCKETS);
-  printf("fav food for sammy@ucsc.edu: %s\n", fav_food);
-
-  return 0;
-}
