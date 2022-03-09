@@ -2,16 +2,16 @@ CC = clang
 
 CFLAGS = -Wall -Wpedantic -Werror -Wextra
 
-all: tester
+all: businessdb
 
-tester: hw7.o tester.o
-	$(CC) $(CFLAGS) -o tester hw7.o tester.o
+businessdb: hw7.o businessdb.o
+	$(CC) $(CFLAGS) -o businessdb hw7.o businessdb.o
 
-tester.o: hw7.c hw7.h
-	$(CC) $(CFLAGS) -c tester.c
+businessdb.o: hw7.c hw7.h
+	$(CC) $(CFLAGS) -c businessdb.c
 
 clean:
-	rm -f hw7.o tester.o hw7 tester
+	rm -f hw7.o businessdb.o hw7 businessdb
 
 format:
 	clang-format -i -style=file *.[ch]
