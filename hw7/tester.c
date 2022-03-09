@@ -30,12 +30,28 @@ int main(void) {
       add_to_hashtable(newcust->email, newcust->name, newcust->shoe_size, newcust->fav_food, buckets, NUM_BUCKETS);
       printf("email: %s\tname: %s\tshoe size: %d\tfav food: %s\n", newcust->email, newcust->name, newcust->shoe_size, newcust->fav_food);
     } else {
-      printf("missing email, name, shoe_size, or fav_food\n"); 
+      printf("ERROR: missing email, name, shoe_size, or fav_food\n"); 
     }
   }
 
-  
+  while (1) {
+    printf("command: ");
+    char command[15];
+    scanf("%s", command);
 
+    if (strcmp(command, "quit") == 0) {
+      break;
+    } else if (strcmp(command, "save") == 0) {
+      FILE *writefile = fopen("customers.tsv", "a");
+      if (writefile == NULL) {
+        printf("error opening file\n");
+      }
+      
+      fprintf(writefile, "%s\t%s\t%d\t%s\n", newcust->email, newcust->name, newcust->shoe_size, newcust->fav_food);
+      printf("%s\t%s\t%d\t%s\n", newcust->email, newcust->name, newcust->shoe_size, newcust->fav_food);
+    }
+  }
+  
 /*
   char *sammy = fav_food_for_customer("sammy@ucsc.edu", buckets, NUM_BUCKETS); 
   printf("%s\n", sammy);
