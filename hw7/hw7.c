@@ -40,7 +40,7 @@ void add_to_hashtable(char *email, char *name, int shoe_size, char *fav_food, Cu
 
   buckets[which_bucket] = add_to_list(email, name, shoe_size, fav_food, buckets[which_bucket]);
   
-  printf("customer %s goes in bucket %lu .\n", email, which_bucket);
+  //printf("customer %s goes in bucket %lu .\n", email, which_bucket);
 }
 
 char *fav_food_for_customer(char *email, CustomerNode **buckets, size_t num_buckets) {
