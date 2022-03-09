@@ -18,23 +18,28 @@ int main(void) {
   newcust->name = (char *)malloc(50*sizeof(char *));
   newcust->fav_food = (char *)malloc(50*sizeof(char *));
 
-  char buf[150];
+  char line[150];
 
   FILE *infile = fopen("customers.tsv", "r");
   if (infile == NULL) {
     printf("no such file\n");
   }
 
-  while (fgets(buf, 150, infile)) {
-    if (fscanf(infile, "%50[^\t]\t%50[^\t]\t%d\t%50[^\n]", newcust->email, newcust->name, &newcust->shoe_size, newcust->fav_food) == 4) {
+  while (fgets(line, 150, infile) != NULL) {
+    if (sscanf(line, "%50[^\t]\t%50[^\t]\t%d\t%50[^\n]", newcust->email, newcust->name, &newcust->shoe_size, newcust->fav_food) == 4) {
       add_to_hashtable(newcust->email, newcust->name, newcust->shoe_size, newcust->fav_food, buckets, NUM_BUCKETS);
       printf("email: %s\tname: %s\tshoe size: %d\tfav food: %s\n", newcust->email, newcust->name, newcust->shoe_size, newcust->fav_food);
     } else {
       printf("missing email, name, shoe_size, or fav_food\n"); 
     }
-  } 
+  }
 
-/* 
+  
+
+/*
+  char *sammy = fav_food_for_customer("sammy@ucsc.edu", buckets, NUM_BUCKETS); 
+  printf("%s\n", sammy);
+
   int sammy_size = 20;
 
   add_to_hashtable("sammy@ucsc.edu", "sammy", sammy_size, "slugs", buckets, NUM_BUCKETS);
