@@ -47,7 +47,8 @@ int main(void) {
   newcust = NULL;*/
 
   //CustomerNode *add_cust = NULL;
-  
+  fclose(infile);
+
   while (1) {
     printf("command: ");
     char command[10];
