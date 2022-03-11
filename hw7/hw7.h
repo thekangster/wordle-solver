@@ -22,3 +22,5 @@ void lookup_customer(char *email, CustomerNode **buckets, size_t num_buckets);
 void delete_customer(char *email, CustomerNode **buckets, size_t num_buckets);
 
 void list_customers(CustomerNode **buckets, size_t num_buckets);
+
+void delete_hashtable(CustomerNode **buckets, size_t num_buckets);

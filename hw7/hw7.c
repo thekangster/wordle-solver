@@ -43,7 +43,7 @@ CustomerNode *add_to_list(char *email, char *name, int shoe_size, char *fav_food
   new_customer->fav_food = strdup(fav_food);
  
   new_customer->next = bucket;
-
+  
   return new_customer;
 }
 
@@ -92,23 +92,47 @@ void list_customers(CustomerNode **buckets, size_t num_buckets) {
   return;
 }
 
-/*
 void delete_customer(char *email, CustomerNode **buckets, size_t num_buckets) {
   
   size_t which_bucket = hash(email) % num_buckets;
 
   CustomerNode* cur;
   cur = buckets[which_bucket];
+  CustomerNode* prev;
+  prev = NULL;
 
   while(cur != NULL) {
     if (strcmp(cur->email, email) == 0) {
+      if (prev == NULL) {
+        buckets[which_bucket] = cur->next;
+      } else {
+        prev->next = cur->next;
+      }
       free(cur->email);
       free(cur->name);
-      free(cur->shoe_size);
       free(cur->fav_food);
-      
+      free(cur);
+      break;
     }
+    prev = cur;
     cur = cur->next;
   }
   return;
-}*/
+}
+
+void delete_hashtable(CustomerNode **buckets, size_t num_buckets) {
+  
+  CustomerNode *cur;
+  CustomerNode *tmp;
+  for (int i = 0; i < (int)num_buckets; i++) {
+    cur = buckets[i];
+    tmp = cur->next;
+    while(cur != NULL) {
+      free(cur->email);
+      free(cur->name);
+      free(cur->fav_food);
+      free(cur);
+      cur = tmp;
+    }  
+  }
+}
