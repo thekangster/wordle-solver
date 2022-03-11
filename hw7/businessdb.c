@@ -26,29 +26,64 @@ int main(void) {
   }
 
   while (fgets(line, 150, infile) != NULL) {
-    if (sscanf(line, "%50[^\t]\t%50[^\t]\t%d\t%50[^\n]", newcust->email, newcust->name, &newcust->shoe_size, newcust->fav_food) == 4) {
+    if (sscanf(line, " %50[^\t]\t%50[^\t]\t%d\t%50[^\n]", newcust->email, newcust->name, &newcust->shoe_size, newcust->fav_food) == 4) {
       add_to_hashtable(newcust->email, newcust->name, newcust->shoe_size, newcust->fav_food, buckets, NUM_BUCKETS);
       printf("email: %s\tname: %s\tshoe size: %d\tfav food: %s\n", newcust->email, newcust->name, newcust->shoe_size, newcust->fav_food);
     } else {
       printf("ERROR: missing email, name, shoe_size, or fav_food\n"); 
     }
   }
-
+  
+  CustomerNode *add_cust = NULL;
+  
   while (1) {
     printf("command: ");
-    char command[15];
+    char command[10];
     scanf("%s", command);
-
+    
     if (strcmp(command, "quit") == 0) {
       break;
+    } else if (strcmp(command, "add") == 0) {
+      add_cust = malloc(sizeof(CustomerNode));
+      add_cust->email = (char *)malloc(50*sizeof(char *));
+      add_cust->name = (char *)malloc(50*sizeof(char *));
+      add_cust->fav_food = (char *)malloc(50*sizeof(char *));
+      printf("email address? ");
+      scanf(" %[^\n\t]s", add_cust->email);
+      printf("name? ");
+      scanf(" %[^\n\t]s", add_cust->name);
+      printf("shoe size? ");
+      scanf("%d", &add_cust->shoe_size);
+      printf("favorite food? ");
+      scanf(" %[^\n\t]s", add_cust->fav_food);
+      add_to_hashtable(add_cust->email, add_cust->name, add_cust->shoe_size, add_cust->fav_food, buckets, NUM_BUCKETS);
     } else if (strcmp(command, "save") == 0) {
-      FILE *writefile = fopen("customers.tsv", "a");
+      FILE *writefile = fopen("customers.tsv", "w");
       if (writefile == NULL) {
         printf("error opening file\n");
       }
-      
-      fprintf(writefile, "%s\t%s\t%d\t%s\n", newcust->email, newcust->name, newcust->shoe_size, newcust->fav_food);
-      printf("%s\t%s\t%d\t%s\n", newcust->email, newcust->name, newcust->shoe_size, newcust->fav_food);
+      if (add_cust == NULL) {
+        printf("add cust is null\n");
+        continue;
+      }
+      CustomerNode *node;
+      for (int i = 0; i < (int)NUM_BUCKETS; i++) {
+        node = buckets[i];
+        while(node != NULL) {
+          fprintf(writefile, "%s\t%s\t%d\t%s\n", node->email, node->name, node->shoe_size, node->fav_food);
+          node = node->next;
+        }
+      }
+
+      fclose(writefile);
+      printf("%s\t%s\t%d\t%s\n", add_cust->email, add_cust->name, add_cust->shoe_size, add_cust->fav_food);
+    } else if (strcmp(command, "lookup") == 0) {
+      printf("email address? ");
+      char *email_input = malloc(sizeof(char *));
+      scanf(" %[^\n\t]s", email_input);
+      lookup_customer(email_input, buckets, NUM_BUCKETS);
+    } else if (strcmp(command, "list") == 0) {
+      list_customers(buckets, NUM_BUCKETS);
     }
   }
   

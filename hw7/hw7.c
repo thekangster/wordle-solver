@@ -20,7 +20,20 @@ unsigned long hash(char *str) {
 }
 
 CustomerNode *add_to_list(char *email, char *name, int shoe_size, char *fav_food, CustomerNode *bucket) {
-  
+
+  CustomerNode* node;
+  node = bucket;
+
+  while(node != NULL) {
+    if (strcmp(node->email, email) == 0) {
+      node->name = name;
+      node->shoe_size = shoe_size;
+      node->fav_food = fav_food;
+      return node;
+    }
+    node = node->next;
+  }
+
   CustomerNode* new_customer;
   
   new_customer = malloc(sizeof(CustomerNode));
@@ -43,20 +56,59 @@ void add_to_hashtable(char *email, char *name, int shoe_size, char *fav_food, Cu
   //printf("customer %s goes in bucket %lu .\n", email, which_bucket);
 }
 
-char *fav_food_for_customer(char *email, CustomerNode **buckets, size_t num_buckets) {
+void lookup_customer(char *email, CustomerNode **buckets, size_t num_buckets) {
   
   size_t which_bucket = hash(email) % num_buckets;
 
-  char *result = NULL;
   CustomerNode* node;
   node = buckets[which_bucket];
 
   while(node != NULL) {
     if (strcmp(node->email, email) == 0) {
-      result = node->fav_food;
+      printf("email: %s\n", node->email);
+      printf("name: %s\n", node->name);
+      printf("shoesize: %d\n", node->shoe_size);
+      printf("food: %s\n\n", node->fav_food);
     }
     node = node->next;
   }
-  return result;
+  return;
 }
 
+void list_customers(CustomerNode **buckets, size_t num_buckets) {
+  
+  CustomerNode* node;
+  
+  for (int i = 0; i < (int)num_buckets; i++) {
+    node = buckets[i];
+    while(node != NULL) {
+      printf("email: %s\n", node->email);
+      printf("name: %s\n", node->name);
+      printf("shoesize: %d\n", node->shoe_size);
+      printf("food: %s\n\n", node->fav_food);
+      node = node->next;
+    }
+  }
+  return;
+}
+
+/*
+void delete_customer(char *email, CustomerNode **buckets, size_t num_buckets) {
+  
+  size_t which_bucket = hash(email) % num_buckets;
+
+  CustomerNode* cur;
+  cur = buckets[which_bucket];
+
+  while(cur != NULL) {
+    if (strcmp(cur->email, email) == 0) {
+      free(cur->email);
+      free(cur->name);
+      free(cur->shoe_size);
+      free(cur->fav_food);
+      
+    }
+    cur = cur->next;
+  }
+  return;
+}*/
