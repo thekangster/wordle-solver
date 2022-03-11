@@ -26,9 +26,11 @@ CustomerNode *add_to_list(char *email, char *name, int shoe_size, char *fav_food
 
   while(node != NULL) {
     if (strcmp(node->email, email) == 0) {
-      node->name = name;
+      free(node->name);
+      node->name = strdup(name);
       node->shoe_size = shoe_size;
-      node->fav_food = fav_food;
+      free(node->fav_food);
+      node->fav_food = strdup(fav_food);
       return node;
     }
     node = node->next;
@@ -126,8 +128,9 @@ void delete_hashtable(CustomerNode **buckets, size_t num_buckets) {
   CustomerNode *tmp;
   for (int i = 0; i < (int)num_buckets; i++) {
     cur = buckets[i];
-    tmp = cur->next;
     while(cur != NULL) {
+      tmp = cur->next;
+      printf("%s %s %s\n", cur->email, cur->name, cur->fav_food);
       free(cur->email);
       free(cur->name);
       free(cur->fav_food);
