@@ -130,7 +130,6 @@ void delete_hashtable(CustomerNode **buckets, size_t num_buckets) {
     cur = buckets[i];
     while(cur != NULL) {
       tmp = cur->next;
-      printf("%s %s %s\n", cur->email, cur->name, cur->fav_food);
       free(cur->email);
       free(cur->name);
       free(cur->fav_food);
