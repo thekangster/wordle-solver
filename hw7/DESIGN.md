@@ -7,6 +7,8 @@ This is the design document for homework 7
 
 This program will allow us to see a represenation of a simple database of our customers and the information we know about them. This database also has an interface that gives us the ability to read a database file from the disk, add customers, delete customers, and save the database back to the file.
 
+My implementation of this will utilize a businessdb.c file that will hold the main file. My hw7.c file will hold my hashtable implementation, including their functions and linkedlist functions. hw7.h will include linkedlist node struct and function declarations.
+
 The program should read customers.tsv and store the customers into the hash table. Then, it will prompt the user to enter any of the supported commands.
 
 `add`: the program will additionally prompt the user for an email address, a display name, a shoe size, and a favorite food. This user (with their associated data) will then be added to the hash table. If that email address is already present in the has table, then replace the data that was already in the hash table with the new entry.
@@ -21,66 +23,54 @@ The program should read customers.tsv and store the customers into the hash tabl
 
 `quit`: clean up all of our memory and exit the program.
 
-# pseudocode
+# pseudocode (Customer Node struct)
 ```
-struct CustomerInfo
-  string email
-  string name
-  int shoe_size
-  string fav_food
-
 struct CustomerNode
-  string key
-  CustomerInfo val
-  CustomerNode pointer to next
+  email
+  name
+  shoe_size
+  fav_food
+  pointer to next
 
 main:
-  open customers.tsv
-  read each line
-  remove newline character
-  split the file's strings by tab characters
-  set CustomerInfo email to the first string
-  set CustomerInfo name to the second string
-  set CustomerInfo shoe_size to the third int
-  set CustomerInfo fav_food to the fourth string
+  create NULL initialized buckets array of size NUM_BUCKETS
+  create temporary variables for email, name, shoesize, and fav food
+  
+  create line buffer
 
-  set CustomerNode key to CustomerInfo email
-  set CustomerNode val to CustomerInfo
+  open customers.tsv for read
+  if there is no file
+    print error
 
-  get user input for a command
-    if command is quit
-      break
+  get first line
+    scan the first line and save each tab-separated value to the temp variables
+      add the values to the hashtable
+  close the file
+  
+  while true
+    get a command from user
+      if command is quit
+        delete the hashtable
+        break
+      
+      else if the command is add
+        ask for email, name, shoe size, favorite food
+        add the values to hashtable
 
-    else if command is save
-      open customers.tsv to write
-      for each key in CustomerNode
-        add the customer info to a line
-        print each line
+      else if the command is save
+        write all the values in the hashtable to customers.tsv
 
-    else if command is add
-      scan email, name, shoe size, favorite food
-      add all the info to CustomerInfo
-      CustomerNode[email] = CustomerInfo
+      else if the command is lookup
+        ask for email
+        print the value of the email in the hashtable
 
-    else if command is lookup
-      scan the email
-      if email is a key in CustomerNode
-        print their info
-      else
-        print user is not found
-
-    else if command is delete
-      scan an email
-      delete CustomerNode[email]
-      if not in CustomerNode
-        print user not found
-
-    else if command is list
-      print each CustomerNode's info
-
-    else
-      print unkown command
-```
+      else if the command is delete
+        ask for email
+        delete the customer in the hashtable
+      
+      else if the command is list
+        go through the hashtable and list the keys and values
+``
 
 # how to run it
 
@@ -92,6 +82,9 @@ To build all the programs, run:
 
 To run the program:
 
-`$ ./hw7`
+`$ ./businessdb`
 
+To remove binary files, run:
+
+`$ make clean`
 
