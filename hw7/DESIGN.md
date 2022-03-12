@@ -70,7 +70,7 @@ main:
       
       else if the command is list
         go through the hashtable and list the keys and values
-``
+```
 
 # how to run it
 
