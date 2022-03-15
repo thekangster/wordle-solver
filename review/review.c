@@ -111,11 +111,6 @@ void reverse_doubles_with_stack(double *array, size_t array_len) {
   for (int i = 0; i < (int)array_len; i++) {
     array[i] = pop_double(stack);
   }
-
-  for (int i = 0; i < (int)array_len; i++) {
-    printf("%f ", array[i]);
-  }
-
 }  
 
 tnode *word_observe(char *word, tnode *node) {
