@@ -10,30 +10,68 @@ WordCountTable *sum_word_count_tables(WordCountTable *table_a,
   // Your code here! You can change whatever you want in this function.
   // return an empty one just so we don't crash.
   WordCountTable *out = build_word_count_table(table_a->num_buckets);
-
+  
+  WordCountTable *tmp = build_word_count_table(table_a->num_buckets);
   WordCountNode *node_a;
   WordCountNode *node_b;
   
+  int w_count;
+  int a_count;
+  int b_count;
+
   for (int i = 0; i < (int)table_a->num_buckets; i++) {
     node_a = table_a->buckets[i];
     while (node_a != NULL) {
-      for (int j = 0; i < (int)table_b->num_buckets; j++) {
+      for (int j = 0; j < (int)table_b->num_buckets; j++) {
         node_b = table_b->buckets[j];
-        //printf("rutabaga in out: %d\n", get_word_count("rutabaga", out));
         while (node_b != NULL) {
-          if (strcmp(node_b->word, node_a->word) == 0) {
+          a_count = get_word_count(node_a->word, tmp);
+          b_count = get_word_count(node_b->word, tmp);
+          if (a_count != 1 && b_count != 1 && strcmp(node_b->word, node_a->word) == 0) {
+            set_word_count(node_b->word, 1, tmp);
             set_word_count(node_b->word, node_a->count + node_b->count, out);
-          } else {
-            set_word_count(node_b->word, node_b->count, out);
-            set_word_count(node_a->word, node_a->count, out);
-          }
+          } 
           node_b = node_b->next;
         }
       }
       node_a = node_a->next;
     }
   }
+ 
+  WordCountNode *node_test;
+  for (int i = 0; i < (int)tmp->num_buckets; i++) {
+    node_test = tmp->buckets[i];
+    while(node_test != NULL) {
+      for (int j = 0; j < (int)table_a->num_buckets; j++) {
+        node_a = table_a->buckets[j];
+        while(node_a != NULL) {
+          w_count = get_word_count(node_test->word, tmp);
+          if (strcmp(node_a->word, node_test->word) != 0 && w_count != 1) {
+            set_word_count(node_a->word, node_a->count, out);
+          }
+          node_a = node_a->next;
+        }
+      }
+      node_test = node_test->next;
+    }
+  }
 
+  for (int i = 0; i < (int)tmp->num_buckets; i++) {
+    node_test = tmp->buckets[i];
+    while(node_test != NULL) {
+      for (int j = 0; j < (int)table_b->num_buckets; j++) {
+        node_b = table_b->buckets[j];
+        while(node_b != NULL) {
+          w_count = get_word_count(node_test->word, tmp);
+          if (strcmp(node_b->word, node_test->word) != 0 && w_count != 1) {
+            set_word_count(node_b->word, node_b->count, out);
+          }
+          node_b = node_b->next;
+        }
+      }
+      node_test = node_test->next;
+    }
+  }
   return out;
 }
 
