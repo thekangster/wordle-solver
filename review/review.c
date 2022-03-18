@@ -113,19 +113,3 @@ void reverse_doubles_with_stack(double *array, size_t array_len) {
   }
 }  
 
-tnode *word_observe(char *word, tnode *node) {
-  // This function returns a pointer to a tnode because you may have to allocate
-  // a new one. You might take a NULL pointer to start with.
-  // Also, this means that you can very cleanly do this with recursion.
-  return NULL;
-}
-
-int word_count(char *word, tnode *node) {
-  // Default return values; here for you to change.
-  return 0;
-}
-
-void delete_tree(tnode *node) {
-  // Free the whole tree and all associated memory. This can be recursive or
-  // not, your choice!
-}

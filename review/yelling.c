@@ -14,7 +14,6 @@ int main(int argc, char **argv) {
       printf("error no file\n");
     }
     
-    char input[100];
     int c;
     while((c = fgetc(fp)) != EOF) {
       c = toupper(c);
