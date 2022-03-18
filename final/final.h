@@ -24,6 +24,8 @@ typedef struct BinaryTree {
   struct BinaryTree *right;
 } BinaryTree;
 
+int getLevel (int data, BinaryTree *tree, int level);
+
 int depth_of_value(int value, BinaryTree *tree);
 
 // Question four.
