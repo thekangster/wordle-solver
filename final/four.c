@@ -45,7 +45,7 @@ WordCountTable *sum_word_count_tables(WordCountTable *table_a,
       for (int j = 0; j < (int)table_a->num_buckets; j++) {
         node_a = table_a->buckets[j];
         while(node_a != NULL) {
-          w_count = get_word_count(node_test->word, tmp);
+          w_count = get_word_count(node_a->word, tmp);
           if (strcmp(node_a->word, node_test->word) != 0 && w_count != 1) {
             set_word_count(node_a->word, node_a->count, out);
           }
@@ -62,7 +62,7 @@ WordCountTable *sum_word_count_tables(WordCountTable *table_a,
       for (int j = 0; j < (int)table_b->num_buckets; j++) {
         node_b = table_b->buckets[j];
         while(node_b != NULL) {
-          w_count = get_word_count(node_test->word, tmp);
+          w_count = get_word_count(node_b->word, tmp);
           if (strcmp(node_b->word, node_test->word) != 0 && w_count != 1) {
             set_word_count(node_b->word, node_b->count, out);
           }
