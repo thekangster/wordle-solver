@@ -12,7 +12,6 @@
 // vocabulary, then this function will return 15.
 int score_letter(char letter, char **vocabulary, size_t num_words) {
 
-  // TODO(you): implement this function!
   int count = 0;
   for (int index = 0; index < (int)num_words; index++) {
     if (vocabulary[index] == NULL) {
@@ -34,7 +33,6 @@ int score_letter(char letter, char **vocabulary, size_t num_words) {
 // score once.
 int score_word(char *word, int *letter_scores) {
   
-  // TODO(you): implement this function!
   int score = 0;
   int num;
   int seen[5] = {0, 0, 0, 0, 0};
@@ -56,7 +54,6 @@ int score_word(char *word, int *letter_scores) {
 }
 
 // Returns the optimum guess, based on our heuristic.
-// This one works, you don't have to change it.
 // Note that this function allocates a new string every time it runs, and those
 // strings will need to be freed!
 char *get_guess(char **vocabulary, size_t num_words) {
@@ -90,7 +87,6 @@ char *get_guess(char **vocabulary, size_t num_words) {
 size_t filter_vocabulary_gray(char letter, char **vocabulary,
                               size_t num_words) {
   
-  // TODO(you): implement this function!
   size_t filtered = 0;
   for (int i = 0; i < (int)num_words; i++) {
     if (vocabulary[i] == NULL) {
@@ -113,7 +109,6 @@ size_t filter_vocabulary_gray(char letter, char **vocabulary,
 size_t filter_vocabulary_yellow(char letter, int position, char **vocabulary,
                                 size_t num_words) {
 
-  // TODO(you): implement this function!
   size_t filtered = 0;
   for (int i = 0; i < (int)num_words; i++) {
     if (vocabulary[i] == NULL) {
@@ -140,7 +135,6 @@ size_t filter_vocabulary_yellow(char letter, int position, char **vocabulary,
 size_t filter_vocabulary_green(char letter, int position, char **vocabulary,
                                size_t num_words) {
 
-  // TODO(you): implement this function!
   size_t filtered = 0;
   for (int i = 0; i < (int)num_words; i++) {
     if (vocabulary[i] == NULL) {
