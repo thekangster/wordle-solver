@@ -7,6 +7,6 @@ $ make
 ```
 and to solve:
 ```
-$ ./solve
+$ ./solver
 ```
 
